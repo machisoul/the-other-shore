@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import VisitTracker from '@/components/VisitTracker'
+import VisitCounter from '@/components/VisitCounter'
 
 export const metadata: Metadata = {
   title: '此岸彼岸',
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body>
-        <VisitTracker />
+        <VisitCounter displayOnly={false} />
         {children}
       </body>
     </html>

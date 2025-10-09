@@ -20,7 +20,7 @@ export default function Home() {
           </p>
         )} */}
         <p style={{ textAlign: 'center', fontSize: '0.85rem', color: '#a0896d', marginBottom: '3rem', textIndent: 0 }}>
-          总字数：{wordCount.total.toLocaleString('zh-CN')} 字 | <VisitCounter />
+          总字数：{wordCount.total.toLocaleString('zh-CN')} 字 | <VisitCounter displayOnly={true} />
         </p>
 
         <div style={{ marginTop: '3rem' }}>
