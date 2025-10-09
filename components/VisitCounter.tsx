@@ -6,9 +6,8 @@ export default function VisitCounter() {
   const [visits, setVisits] = useState<string>('...')
 
   useEffect(() => {
-    // Only fetch the current count without incrementing
-    // Use the 'get' endpoint instead of 'up'
-    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage'
+    // Only fetch the current count without incrementing using Vercel proxy
+    const counterUrl = '/api/counter/get'
 
     fetch(counterUrl)
       .then(response => {

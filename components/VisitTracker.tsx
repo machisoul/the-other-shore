@@ -7,8 +7,8 @@ export default function VisitTracker() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Track visit on every page navigation
-    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
+    // Track visit on every page navigation using Vercel proxy
+    const counterUrl = '/api/counter/increment'
 
     fetch(counterUrl)
       .then(response => {
