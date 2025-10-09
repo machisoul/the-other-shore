@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getNovelInfo, getAllChapters } from '@/lib/novel'
+import VisitCounter from '@/components/VisitCounter'
 
 export default function Home() {
   const novelInfo = getNovelInfo()
@@ -13,8 +14,8 @@ export default function Home() {
           作者：{novelInfo.author}
         </p>
         {novelInfo.description && (
-          <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#8b6f47', marginBottom: '3rem', textIndent: 0, fontStyle: 'italic' }}>
-            {novelInfo.description}
+          <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#8b6f47', marginBottom: '1rem', textIndent: 0, fontStyle: 'italic' }}>
+            {novelInfo.description} | <VisitCounter />
           </p>
         )}
 
