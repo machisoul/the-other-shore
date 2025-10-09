@@ -191,12 +191,11 @@ body {
   margin: 3rem 0;
 }
 
-/* Character name styling - darker color with spacing */
+/* Character name styling - subtle color */
 .novel-content .character-name {
   font-family: var(--font-family-latin), var(--font-family-chinese);
-  color: #0d0a08;
+  color: #4a3a27;
   font-weight: normal;
-  padding: 0 0.15em;
 }
 
 /* Ensure italic text uses Kaiti for Chinese */
