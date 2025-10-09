@@ -1,5 +1,5 @@
 ---
-title: 王与笑
-author: 作者名
-description: 一段关于寻找自我、逃离现实，却意外卷入未知事件的旅程
+title: 《此岸彼岸》
+author: 王虞之
+description: 关于穿越、遗憾与无法抵达的救赎
 ---
