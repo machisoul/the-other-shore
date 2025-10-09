@@ -310,18 +310,18 @@ body {
 /* Responsive design */
 @media (max-width: 768px) {
   html {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .paper-container {
     margin: 0.5rem;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1.5rem;
     min-height: calc(100vh - 1rem);
   }
 
   .novel-content {
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.9;
   }
 
   .novel-content h1 {
@@ -345,7 +345,7 @@ body {
 
   .novel-content pre {
     padding: 0.75rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     margin: 1rem 0;
   }
 
@@ -359,7 +359,7 @@ body {
   .nav-button,
   .home-button {
     padding: 0.625rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     min-width: 80px;
     flex: 1 1 auto;
   }
@@ -393,12 +393,12 @@ body {
 /* Small mobile devices */
 @media (max-width: 480px) {
   html {
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .paper-container {
     margin: 0;
-    padding: 1.25rem 0.875rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 0;
     min-height: 100vh;
   }
