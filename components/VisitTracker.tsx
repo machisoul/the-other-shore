@@ -1,10 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function VisitTracker() {
+  const pathname = usePathname()
+
   useEffect(() => {
-    // Track visit on every page load
+    // Track visit on every page navigation
     const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
 
     fetch(counterUrl)
@@ -14,10 +17,13 @@ export default function VisitTracker() {
         }
         return response.json()
       })
+      .then(data => {
+        console.log('Visit tracked:', data.count)
+      })
       .catch(error => {
         console.error('Visit tracker error:', error)
       })
-  }, [])
+  }, [pathname]) // Trigger on pathname change
 
   return null // This component doesn't render anything
 }

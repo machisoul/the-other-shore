@@ -30,8 +30,8 @@ export default function VisitCounter() {
   }, [])
 
   return (
-    <span style={{ textAlign: 'center', fontSize: '0.85rem', color: '#a0896d', marginBottom: '3rem', textIndent: 0 }}>
-      访问量: {visits}
+    <span>
+      访问量：{visits}
     </span>
   )
 }
