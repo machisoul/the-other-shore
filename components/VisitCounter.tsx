@@ -6,25 +6,25 @@ export default function VisitCounter() {
   const [visits, setVisits] = useState<string>('...')
 
   useEffect(() => {
-    // Using hits.seeyoufarm.com - a reliable free visit counter
-    // This increments on each page load/refresh
-    const namespace = 'shore-vidge-me'
-    const key = 'homepage-visits'
+    // Use a more reliable counter API with proper CORS support
+    // Option 1: api.counterapi.dev (free, no registration)
+    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
 
-    // Method 1: Using CountAPI (simple and reliable)
-    const countApiUrl = `https://api.countapi.xyz/hit/${namespace}/${key}`
-
-    fetch(countApiUrl)
+    fetch(counterUrl)
       .then(response => {
-        if (!response.ok) throw new Error('API error')
+        if (!response.ok) {
+          throw new Error('Counter API failed')
+        }
         return response.json()
       })
       .then(data => {
-        setVisits(data.value.toLocaleString('zh-CN'))
+        // The API returns { count: number }
+        const count = data.count || data.value || 0
+        setVisits(count.toLocaleString('zh-CN'))
       })
       .catch(error => {
-        console.error('Failed to fetch visit count:', error)
-        // Fallback: show placeholder
+        console.error('Visit counter error:', error)
+        // Fallback: Don't show the counter if it fails
         setVisits('---')
       })
   }, [])

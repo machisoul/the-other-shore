@@ -29,6 +29,17 @@ export interface NovelInfo {
   title: string
   author: string
   description?: string
+  totalWordCount?: {
+    chinese: number
+    english: number
+    total: number
+  }
+}
+
+export interface WordCount {
+  chinese: number
+  english: number
+  total: number
 }
 
 // Configure marked options for better rendering
@@ -36,6 +47,63 @@ marked.setOptions({
   breaks: true,
   gfm: true,
 })
+
+// Count words in text (separate Chinese and English)
+function countWords(text: string): WordCount {
+  // Remove markdown syntax, frontmatter, and code blocks
+  let cleanText = text
+    .replace(/^---[\s\S]*?---/m, '') // Remove frontmatter
+    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+    .replace(/`[^`]+`/g, '') // Remove inline code
+    .replace(/[#*_~\[\]()]/g, '') // Remove markdown syntax
+    .replace(/https?:\/\/[^\s]+/g, '') // Remove URLs
+
+  // Count Chinese characters (CJK Unified Ideographs)
+  const chineseMatches = cleanText.match(/[\u4e00-\u9fa5]/g)
+  const chineseCount = chineseMatches ? chineseMatches.length : 0
+
+  // Remove Chinese characters and count English words
+  const textWithoutChinese = cleanText.replace(/[\u4e00-\u9fa5]/g, '')
+  const englishMatches = textWithoutChinese.match(/[a-zA-Z]+/g)
+  const englishCount = englishMatches ? englishMatches.length : 0
+
+  return {
+    chinese: chineseCount,
+    english: englishCount,
+    total: chineseCount + englishCount
+  }
+}
+
+// Get total word count across all chapters
+export function getTotalWordCount(): WordCount {
+  if (!fs.existsSync(contentDirectory)) {
+    return { chinese: 0, english: 0, total: 0 }
+  }
+
+  const files = fs.readdirSync(contentDirectory)
+  const chapterFiles = files.filter(file =>
+    file.startsWith('chapter_') && file.endsWith('.md')
+  )
+
+  let totalChinese = 0
+  let totalEnglish = 0
+
+  chapterFiles.forEach(file => {
+    const fullPath = path.join(contentDirectory, file)
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { content } = matter(fileContents)
+
+    const wordCount = countWords(content)
+    totalChinese += wordCount.chinese
+    totalEnglish += wordCount.english
+  })
+
+  return {
+    chinese: totalChinese,
+    english: totalEnglish,
+    total: totalChinese + totalEnglish
+  }
+}
 
 // Get novel metadata from info.md
 export function getNovelInfo(): NovelInfo {
