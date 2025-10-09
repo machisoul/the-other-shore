@@ -3,9 +3,9 @@ import { getChapterContent, getAllChapters } from '@/lib/novel'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -15,13 +15,15 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function ChapterPage({ params }: PageProps) {
+export default async function ChapterPage({ params }: PageProps) {
+  const resolvedParams = await params
+
   try {
-    const chapter = getChapterContent(params.slug)
+    const chapter = getChapterContent(resolvedParams.slug)
     const allChapters = getAllChapters()
 
     // Find current chapter index
-    const currentIndex = allChapters.findIndex(ch => ch.slug === params.slug)
+    const currentIndex = allChapters.findIndex(ch => ch.slug === resolvedParams.slug)
     const prevChapter = currentIndex > 0 ? allChapters[currentIndex - 1] : null
     const nextChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null
 
