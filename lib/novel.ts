@@ -48,29 +48,32 @@ marked.setOptions({
   gfm: true,
 })
 
-// Count words in text (separate Chinese and English)
+// Count all non-whitespace characters (excluding markdown syntax)
 function countWords(text: string): WordCount {
   // Remove markdown syntax, frontmatter, and code blocks
   let cleanText = text
     .replace(/^---[\s\S]*?---/m, '') // Remove frontmatter
     .replace(/```[\s\S]*?```/g, '') // Remove code blocks
     .replace(/`[^`]+`/g, '') // Remove inline code
-    .replace(/[#*_~\[\]()]/g, '') // Remove markdown syntax
+    .replace(/[#*_~\[\]]/g, '') // Remove markdown syntax (but keep regular parentheses)
     .replace(/https?:\/\/[^\s]+/g, '') // Remove URLs
+    .replace(/\s+/g, '') // Remove all whitespace (spaces, newlines, tabs)
 
   // Count Chinese characters (CJK Unified Ideographs)
   const chineseMatches = cleanText.match(/[\u4e00-\u9fa5]/g)
   const chineseCount = chineseMatches ? chineseMatches.length : 0
 
-  // Remove Chinese characters and count English words
-  const textWithoutChinese = cleanText.replace(/[\u4e00-\u9fa5]/g, '')
-  const englishMatches = textWithoutChinese.match(/[a-zA-Z]+/g)
+  // Count English characters (all letters)
+  const englishMatches = cleanText.match(/[a-zA-Z]/g)
   const englishCount = englishMatches ? englishMatches.length : 0
+
+  // Total is the length of all non-whitespace characters after cleaning
+  const totalCount = cleanText.length
 
   return {
     chinese: chineseCount,
     english: englishCount,
-    total: chineseCount + englishCount
+    total: totalCount
   }
 }
 
@@ -111,8 +114,8 @@ export function getNovelInfo(): NovelInfo {
 
   if (!fs.existsSync(infoPath)) {
     return {
-      title: '余晓',
-      author: '作者名'
+      title: '此岸彼岸',
+      author: '王虞之'
     }
   }
 
@@ -120,8 +123,8 @@ export function getNovelInfo(): NovelInfo {
   const { data } = matter(fileContents)
 
   return {
-    title: data.title || '余晓',
-    author: data.author || '作者名',
+    title: data.title || '此岸彼岸',
+    author: data.author || '王虞之',
     description: data.description
   }
 }
