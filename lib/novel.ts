@@ -58,6 +58,12 @@ export function getNovelInfo(): NovelInfo {
   }
 }
 
+// Process character names marked with []
+function processCharacterNames(html: string): string {
+  // Replace [name] with <span class="character-name">name</span>
+  return html.replace(/\[([^\]]+)\]/g, '<span class="character-name">$1</span>')
+}
+
 export function getChapterContent(slug: string): NovelContent {
   const fullPath = path.join(contentDirectory, `${slug}.md`)
 
@@ -68,12 +74,15 @@ export function getChapterContent(slug: string): NovelContent {
   const { data, content } = matter(fileContents)
 
   // Convert markdown to HTML
-  const htmlContent = marked(content)
+  let htmlContent = marked(content) as string
+
+  // Process character names
+  htmlContent = processCharacterNames(htmlContent)
 
   return {
     metadata: data as NovelMetadata,
     content,
-    htmlContent: htmlContent as string,
+    htmlContent,
     slug
   }
 }

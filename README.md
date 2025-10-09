@@ -1,4 +1,4 @@
-# 余晓 - 小说网站
+# 王与笑
 
 一个简单优雅的在线小说阅读平台，采用纸质书般的阅读体验，使用 Next.js 和 TypeScript 构建。
 
@@ -15,6 +15,12 @@
 ### 1. 安装依赖
 
 ```bash
+pnpm install
+```
+
+如果使用 npm：
+
+```bash
 npm install
 ```
 
@@ -24,7 +30,7 @@ npm install
 
 ```markdown
 ---
-title: 余晓
+title: 王与笑
 author: 作者名
 description: 小说简介
 ---
@@ -48,7 +54,7 @@ author: 作者名
 ### 3. 开发模式运行
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看效果。
@@ -56,10 +62,30 @@ npm run dev
 ### 4. 构建静态网站
 
 ```bash
-npm run build
+pnpm build
 ```
 
 构建完成后，静态文件会生成在 `out` 目录中，您可以将其部署到任何静态网站托管服务。
+
+## 常见问题
+
+### 文件监视器限制错误 (ENOSPC)
+
+如果在开发模式下遇到 `ENOSPC: System limit for number of file watchers reached` 错误，需要增加系统的文件监视器限制：
+
+```bash
+# 查看当前限制
+cat /proc/sys/fs/inotify/max_user_watches
+
+# 临时增加限制（重启后失效）
+sudo sysctl fs.inotify.max_user_watches=524288
+
+# 永久设置
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
+设置完成后重启开发服务器即可。
 
 ## 部署
 

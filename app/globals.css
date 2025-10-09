@@ -1,3 +1,32 @@
+/* CSS Variables */
+:root {
+  --font-family-latin: "Computer Modern Serif", "Latin Modern Roman", Georgia, "Times New Roman", serif;
+  --font-family-chinese: "Songti SC", "STSong", "SimSun", "NSimSun", serif;
+  --font-family-chinese-italic: "Kaiti SC", "STKaiti", "KaiTi", serif;
+}
+
+/* Computer Modern Font */
+@font-face {
+  font-family: "Computer Modern Serif";
+  src: url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts/CMUSerif-Roman.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Computer Modern Serif";
+  src: url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts/CMUSerif-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Computer Modern Serif";
+  src: url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts/CMUSerif-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+}
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -12,6 +41,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  font-family: var(--font-family-latin), var(--font-family-chinese);
   background: #e8dcc4;
   background-image:
     linear-gradient(90deg, rgba(200, 180, 150, 0.03) 1px, transparent 1px),
@@ -50,13 +80,16 @@ body {
 
 /* Typography */
 .novel-content {
-  font-family: 'Georgia', 'Songti SC', 'SimSun', serif;
+  font-family: var(--font-family-latin), var(--font-family-chinese);
   font-size: 1.125rem;
   line-height: 2;
   color: #2c2416;
   text-align: justify;
   position: relative;
   z-index: 1;
+  font-feature-settings: "halt" 1;
+  letter-spacing: 0;
+  word-spacing: 0;
 }
 
 .novel-content h1 {
@@ -161,6 +194,21 @@ body {
   border: none;
   border-top: 2px solid #d4c5a9;
   margin: 3rem 0;
+}
+
+/* Character name styling - darker color with spacing */
+.novel-content .character-name {
+  font-family: var(--font-family-latin), var(--font-family-chinese);
+  color: #0d0a08;
+  font-weight: normal;
+  padding: 0 0.15em;
+}
+
+/* Ensure italic text uses Kaiti for Chinese */
+.novel-content em,
+.novel-content i {
+  font-family: var(--font-family-latin), var(--font-family-chinese-italic);
+  font-style: italic;
 }
 
 /* Images */
