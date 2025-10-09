@@ -6,9 +6,9 @@ export default function VisitCounter() {
   const [visits, setVisits] = useState<string>('...')
 
   useEffect(() => {
-    // Use a more reliable counter API with proper CORS support
-    // Option 1: api.counterapi.dev (free, no registration)
-    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
+    // Only fetch the current count without incrementing
+    // Use the 'get' endpoint instead of 'up'
+    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage'
 
     fetch(counterUrl)
       .then(response => {
@@ -30,7 +30,7 @@ export default function VisitCounter() {
   }, [])
 
   return (
-    <span style={{ color: '#8b6f47', fontSize: '0.9rem' }}>
+    <span style={{ textAlign: 'center', fontSize: '0.85rem', color: '#a0896d', marginBottom: '3rem', textIndent: 0 }}>
       访问量: {visits}
     </span>
   )
