@@ -12,8 +12,8 @@ export default function VisitCounter({ displayOnly = false }: VisitCounterProps)
   const pathname = usePathname()
 
   useEffect(() => {
-    // Use /up to increment counter on every page visit
-    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
+    // Use finicounter.eu.org to track visits for the entire domain
+    const counterUrl = 'https://finicounter.eu.org/counter?host=shore.vidge.me'
 
     fetch(counterUrl)
       .then(response => {
@@ -23,8 +23,8 @@ export default function VisitCounter({ displayOnly = false }: VisitCounterProps)
         return response.json()
       })
       .then(data => {
-        // The API returns { count: number }
-        const count = data.count || data.value || 0
+        // The API returns { views: number }
+        const count = data.views || 0
         setVisits(count.toLocaleString('zh-CN'))
         console.log('Visit tracked:', count)
       })
