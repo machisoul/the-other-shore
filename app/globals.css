@@ -321,6 +321,7 @@ body {
   .novel-content {
     font-size: 1rem;
     line-height: 1.9;
+    text-align: left;
   }
 
   .novel-content h1 {
