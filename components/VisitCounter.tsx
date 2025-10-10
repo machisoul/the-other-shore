@@ -12,31 +12,28 @@ export default function VisitCounter({ displayOnly = false }: VisitCounterProps)
   const pathname = usePathname()
 
   useEffect(() => {
-    // 记录页面访问
-    fetch('/api/visit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ path: pathname }),
-    })
+    // Use /up to increment counter on every page visit
+    const counterUrl = 'https://api.counterapi.dev/v1/shore-vidge-me/homepage/up'
+
+    fetch(counterUrl)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Visit API failed')
+          throw new Error('Counter API failed')
         }
         return response.json()
       })
       .then(data => {
-        // 使用总访问量
-        const count = data.total || 0
+        // The API returns { count: number }
+        const count = data.count || data.value || 0
         setVisits(count.toLocaleString('zh-CN'))
-        console.log('Visit tracked:', pathname, '- Total visits:', count)
+        console.log('Visit tracked:', count)
       })
       .catch(error => {
         console.error('Visit counter error:', error)
+        // Fallback: Don't show the counter if it fails
         setVisits('---')
       })
-  }, [pathname]) // 每次路径变化都会触发计数
+  }, [pathname]) // Trigger on pathname change to track all page visits
 
   // If displayOnly is false, don't render anything (invisible tracker)
   if (!displayOnly) {
