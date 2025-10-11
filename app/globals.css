@@ -198,6 +198,19 @@ body {
   font-weight: normal;
 }
 
+/* Copyright protection - disable text selection */
+.novel-content {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Prevent context menu on content */
+.novel-content {
+  -webkit-touch-callout: none;
+}
+
 
 /* Ensure italic text uses Kaiti for Chinese */
 .novel-content em,

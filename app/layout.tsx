@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import VisitCounter from '@/components/VisitCounter'
+import CopyProtection from '@/components/CopyProtection'
 
 export const metadata: Metadata = {
   title: '此岸彼岸',
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body>
+        <CopyProtection />
         <VisitCounter displayOnly={false} />
         {children}
       </body>
