@@ -147,6 +147,13 @@ export function getChapterContent(slug: string): NovelContent {
   // Convert markdown to HTML
   let htmlContent = marked(content) as string
 
+  // Fix Chinese dash spacing: remove spaces around em dashes
+  // This fixes marked's automatic space insertion around ——
+  htmlContent = htmlContent.replace(/\s+(—+)\s+/g, '$1')
+
+  // Fix Chinese dash rendering: wrap consecutive em dashes in a span with tighter spacing and margin
+  htmlContent = htmlContent.replace(/(——+)/g, '<span style="letter-spacing: -0.15em; margin-right: 0.15em;">$1</span>')
+
   // Process character names
   htmlContent = processCharacterNames(htmlContent)
 
