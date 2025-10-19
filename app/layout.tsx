@@ -17,7 +17,6 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body>
         <CopyProtection />
-        <VisitCounter displayOnly={false} />
         {children}
       </body>
     </html>

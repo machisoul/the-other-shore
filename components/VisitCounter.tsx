@@ -12,6 +12,11 @@ export default function VisitCounter({ displayOnly = false }: VisitCounterProps)
   const pathname = usePathname()
 
   useEffect(() => {
+    // Only fetch if this is a display instance
+    if (!displayOnly) {
+      return
+    }
+
     // Use finicounter.eu.org to track visits for the entire domain
     const counterUrl = 'https://finicounter.eu.org/counter?host=shore.vidge.me'
 
@@ -33,7 +38,7 @@ export default function VisitCounter({ displayOnly = false }: VisitCounterProps)
         // Fallback: Don't show the counter if it fails
         setVisits('---')
       })
-  }, [pathname]) // Trigger on pathname change to track all page visits
+  }, [pathname, displayOnly]) // Trigger on pathname change to track all page visits
 
   // If displayOnly is false, don't render anything (invisible tracker)
   if (!displayOnly) {
